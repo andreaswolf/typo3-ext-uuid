@@ -1,0 +1,60 @@
+{
+    "name": "andreaswolf/typo3-uuid",
+    "type": "typo3-cms-extension",
+    "description": "Brings UUID functionality to TYPO3 CMS tables",
+    "keywords": [
+        "TYPO3",
+        "extension",
+        "uuid"
+    ],
+    "homepage": "https://a-w.io",
+    "authors": [
+        {
+            "name": "Andreas Wolf",
+            "email": "dev@a-w.io",
+            "role": "Developer",
+            "homepage": "https://a-w.io"
+        }
+    ],
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": "^7.3",
+        "typo3/cms-core": "^9.5 || ^10.4",
+        "typo3/cms-fluid": "^9.5 || ^10.4",
+        "typo3/cms-frontend": "^9.5 || ^10.4"
+    },
+    "require-dev": {
+        "nimut/testing-framework": "^5.2",
+        "helhum/typo3-console": "^5.8 || ^6.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "AndreasWolf\\Uuid\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AndreasWolf\\Uuid\\Tests\\": "Tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "vendor-dir": ".Build/vendor"
+    },
+    "scripts": {
+        "link-extension": [
+            "@php -r 'is_dir($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
+            "@php -r 'file_exists($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/uuid\") || symlink(__DIR__,$extFolder);'"
+        ],
+        "post-autoload-dump": [
+            "@link-extension"
+        ]
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "uuid",
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/public"
+        }
+    }
+}
