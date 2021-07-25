@@ -1,0 +1,27 @@
+<phpunit
+  backupGlobals="true"
+  backupStaticAttributes="false"
+  bootstrap="../.Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTestsBootstrap.php"
+  colors="true"
+  convertErrorsToExceptions="true"
+  convertWarningsToExceptions="true"
+  forceCoversAnnotation="false"
+  processIsolation="true"
+  stopOnError="false"
+  stopOnFailure="false"
+  stopOnIncomplete="false"
+  stopOnSkipped="false"
+  verbose="false"
+>
+
+  <testsuites>
+    <testsuite name="Functional Tests">
+      <directory>../Tests/Functional/</directory>
+    </testsuite>
+  </testsuites>
+
+  <logging>
+    <log type="junit" target="../.Build/Reports/phpunit-functional.xml"/>
+  </logging>
+
+</phpunit>

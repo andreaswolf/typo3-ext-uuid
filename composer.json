@@ -55,7 +55,8 @@
         ],
         "cs:check": "@composer cs:check -d .Tools/",
         "cs:fix": "@composer cs:fix -d .Tools/",
-        "analyse": "phpstan analyse --ansi --no-progress --memory-limit=128M --configuration=.Tools/phpstan.neon"
+        "analyse": "phpstan analyse --ansi --no-progress --memory-limit=128M --configuration=.Tools/phpstan.neon",
+        "test:php:functional": "phpunit --config=.Tools/phpunit-functional.xml"
     },
     "extra": {
         "typo3/cms": {
