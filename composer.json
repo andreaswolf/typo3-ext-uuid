@@ -25,7 +25,11 @@
     },
     "require-dev": {
         "nimut/testing-framework": "^5.2",
-        "helhum/typo3-console": "^5.8 || ^6.6"
+        "helhum/typo3-console": "^5.8 || ^6.6",
+        "phpstan/phpstan": "^0.12.93",
+        "saschaegerer/phpstan-typo3": "^0.13.3",
+        "phpstan/phpstan-phpunit": "^0.12.21",
+        "jangregor/phpstan-prophecy": "^0.8.1"
     },
     "autoload": {
         "psr-4": {
@@ -50,7 +54,8 @@
             "@link-extension"
         ],
         "cs:check": "@composer cs:check -d .Tools/",
-        "cs:fix": "@composer cs:fix -d .Tools/"
+        "cs:fix": "@composer cs:fix -d .Tools/",
+        "analyse": "phpstan analyse --ansi --no-progress --memory-limit=128M --configuration=.Tools/phpstan.neon"
     },
     "extra": {
         "typo3/cms": {
