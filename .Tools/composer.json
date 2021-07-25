@@ -1,0 +1,12 @@
+{
+  "name": "andreaswolf/build-tools",
+  "description": "Build tools for a Composer project",
+  "type": "project",
+  "require": {
+    "friendsofphp/php-cs-fixer": "^2.19"
+  },
+  "scripts": {
+    "cs:check": "php-cs-fixer fix --config php-cs-rules.php --ansi --diff --verbose --dry-run",
+    "cs:fix": "php-cs-fixer fix --config php-cs-rules.php --ansi"
+  }
+}

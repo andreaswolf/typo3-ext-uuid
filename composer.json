@@ -48,7 +48,9 @@
         ],
         "post-autoload-dump": [
             "@link-extension"
-        ]
+        ],
+        "cs:check": "@composer cs:check -d .Tools/",
+        "cs:fix": "@composer cs:fix -d .Tools/"
     },
     "extra": {
         "typo3/cms": {
