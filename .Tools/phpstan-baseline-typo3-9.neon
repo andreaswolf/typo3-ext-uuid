@@ -1,0 +1,12 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to method addSqlData\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Database\\\\Event\\\\AlterTableDefinitionStatementsEvent\\.$#"
+			count: 1
+			path: ../Classes/Service/TableConfigurationService.php
+
+		-
+			message: "#^Parameter \\$event of method AndreasWolf\\\\Uuid\\\\Service\\\\TableConfigurationService\\:\\:addUuidFieldsToDatabaseSchema\\(\\) has invalid typehint type TYPO3\\\\CMS\\\\Core\\\\Database\\\\Event\\\\AlterTableDefinitionStatementsEvent\\.$#"
+			count: 1
+			path: ../Classes/Service/TableConfigurationService.php
+
