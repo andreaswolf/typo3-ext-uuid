@@ -1,0 +1,86 @@
+image: core.a-w.io/aw/docker-webbuild:v12
+
+variables:
+  COMPOSER_ALLOW_SUPERUSER: 1
+  COMPOSER_NO_INTERACTION: 1
+  # only include cache dir here so the configuration does not get tainted
+  COMPOSER_CACHE_DIR: /cache/fes/composer
+  npm_config_cache: /cache/fes/npm
+
+stages:
+  - code-check
+  - test
+  - publish
+
+
+code-style:php:
+  tags:
+    - docker
+  stage: code-check
+  only:
+    - merge_requests
+  script:
+    - update-alternatives --set php /usr/bin/php$PHP_VERSION
+    - composer install --no-progress -d .Tools/
+    - composer cs:check
+  parallel:
+    matrix:
+      - PHP_VERSION:
+          - "7.3"
+          - "7.4"
+
+static:php:
+  tags:
+    - docker
+  stage: code-check
+  only:
+    - merge_requests
+  script:
+    - update-alternatives --set php /usr/bin/php$PHP_VERSION
+    - composer require typo3/minimal:"$TYPO3_VERSION"
+    - composer install --no-progress
+    - composer analyse
+  parallel:
+    matrix:
+      - PHP_VERSION:
+          - "7.3"
+          - "7.4"
+        TYPO3_VERSION:
+          - "^9.5"
+          - "^10.4"
+
+
+test:php:functional:
+  tags:
+    - docker
+  stage: test
+  only:
+    - merge_requests
+  allow_failure: false
+  variables:
+    MYSQL_PASSWORD: typo3
+    MYSQL_DATABASE: typo3
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_USER: typo3
+    typo3DatabaseName: typo3
+    typo3DatabaseUsername: typo3
+    typo3DatabasePassword: typo3
+    typo3DatabaseHost: mysql-db
+  services:
+    - name: mysql:5.7.34
+      alias: mysql-db
+  script:
+    - mysql -h mysql-db -u root -proot mysql -e 'GRANT ALL ON `typo3_%`.* TO `typo3`@`%` IDENTIFIED BY "typo3"'
+
+    - update-alternatives --set php /usr/bin/php$PHP_VERSION
+    - composer require typo3/minimal:"$TYPO3_VERSION"
+    - composer install --no-progress
+    - composer test:php:functional
+  parallel:
+    matrix:
+      - PHP_VERSION:
+          - "7.3"
+          - "7.4"
+        TYPO3_VERSION:
+          - "^9.5"
+          - "^10.4"
