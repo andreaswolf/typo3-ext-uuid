@@ -39,7 +39,10 @@
     "autoload-dev": {
         "psr-4": {
             "AndreasWolf\\Uuid\\Tests\\": "Tests/"
-        }
+        },
+        "classmap": [
+            "Tests/Functional/Fixtures/test_extension"
+        ]
     },
     "config": {
         "sort-packages": true,

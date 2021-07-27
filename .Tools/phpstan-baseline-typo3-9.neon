@@ -10,3 +10,7 @@ parameters:
 			count: 1
 			path: ../Classes/Service/TableDefinitionEventListener.php
 
+		-
+			message: "#^Call to an undefined static method TYPO3\\\\CMS\\\\Core\\\\Utility\\\\GeneralUtility\\:\\:getContainer\\(\\)\\.$#"
+			count: 3
+			path: ../Tests/Functional/UuidResolverInjectionTest.php

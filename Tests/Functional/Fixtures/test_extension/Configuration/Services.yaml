@@ -1,0 +1,38 @@
+services:
+  AndreasWolf\Uuid\UuidResolverFactory: ~
+
+  # Configuration for the first test case: named service
+  AndreasWolf\UuidTestExtension\ClassWithNamedServiceUuidResolverDependency:
+    public: true
+    arguments:
+      $pageUuidResolver: '@pageUuidResolver'
+
+  'pageUuidResolver':
+    factory: ['@AndreasWolf\Uuid\UuidResolverFactory', 'getResolverForTable']
+    class: AndreasWolf\Uuid\UuidResolver
+    arguments:
+      $table: 'pages'
+
+
+  # Configuration for the second test case: "anonymous" inline service
+  AndreasWolf\UuidTestExtension\ClassWithUuidResolverDependency:
+    public: true
+    arguments:
+      $contentUuidResolver: !service
+        factory: ['@AndreasWolf\Uuid\UuidResolverFactory', 'getResolverForTable']
+        arguments:
+          $table: 'tt_content'
+      # this also works with a numbered argument:
+      # - !service { factory: ['@AndreasWolf\Uuid\UuidResolverFactory', 'getResolverForTable'], arguments: { $table: 'tt_content' } }
+
+
+  # Configuration for the third test case
+  AndreasWolf\UuidTestExtension\ClassWithAutowiredServiceDependency:
+    public: true
+    autowire: true
+
+  AndreasWolf\Uuid\UuidResolver $namedUuidResolver:
+    factory: ['@AndreasWolf\Uuid\UuidResolverFactory', 'getResolverForTable']
+    class: AndreasWolf\Uuid\UuidResolver
+    arguments:
+      $table: 'tt_content'
