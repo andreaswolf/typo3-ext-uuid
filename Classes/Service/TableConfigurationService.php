@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace AndreasWolf\Uuid\Service;
 
-use TYPO3\CMS\Core\Database\Event\AlterTableDefinitionStatementsEvent;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
@@ -33,16 +32,29 @@ class TableConfigurationService implements SingletonInterface
         );
     }
 
-    public function addUuidFieldsToDatabaseSchema(AlterTableDefinitionStatementsEvent $event): void
+    /**
+     * @return string[]
+     */
+    public function getUuidFieldDefinitions(): array
     {
-        foreach ($this->tablesWithUuidField as $tableName) {
-            $event->addSqlData(<<<SQL
+        $sqlDefinitions = array_map(function (string $tableName) {
+            return $this->createTableDefinition($tableName);
+        }, $this->tablesWithUuidField);
+        return $sqlDefinitions;
+    }
+
+    /**
+     * @param string $tableName
+     * @return string
+     */
+    private function createTableDefinition(string $tableName): string
+    {
+        return <<<SQL
 CREATE TABLE $tableName (
 	uuid VARCHAR(36) DEFAULT NULL,
 
 	KEY uuid (uuid)
 );
-SQL);
-        }
+SQL;
     }
 }
