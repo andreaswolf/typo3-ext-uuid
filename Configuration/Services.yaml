@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  AndreasWolf\Uuid\Service\TableDefinitionEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'uuid-fields'
+        method: 'addUuidFieldsToDatabaseSchema'
+        event: TYPO3\CMS\Core\Database\Event\AlterTableDefinitionStatementsEvent
+
+  AndreasWolf\Uuid\Service\TableConfigurationService: {}
