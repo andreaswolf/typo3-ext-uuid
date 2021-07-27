@@ -4,7 +4,10 @@ declare(strict_types = 1);
 namespace AndreasWolf\Uuid\Tests\Functional\Service;
 
 use AndreasWolf\Uuid\Service\TableConfigurationService;
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Schema\Table;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Schema\SqlReader;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -45,5 +48,19 @@ class TableConfigurationServiceTest extends FunctionalTestCase
 
         static::assertStringContainsString('uuid VARCHAR(36) DEFAULT NULL', $result);
         static::assertStringContainsString('KEY uuid (uuid)', $result);
+    }
+
+    /** @test */
+    public function uuidFieldIsAutomaticallyCreatedWhenEnabledViaTcaOverride(): void
+    {
+        $conn = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionByName('Default');
+
+        /** @var Schema $schema */
+        $schema = $conn->getSchemaManager()->createSchema();
+
+        $table = $schema->getTable('tx_testextension_with_uuid');
+
+        static::assertInstanceOf(Table::class, $table);
+        static::assertTrue($table->hasColumn('uuid'), 'Field "uuid" does not exist in table "tx_testextension_with_uuid"');
     }
 }
