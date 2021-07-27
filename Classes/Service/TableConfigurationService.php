@@ -13,6 +13,10 @@ class TableConfigurationService implements SingletonInterface
 
     public function enableUuidForTable(string $tableName): void
     {
+        // This is required to later on restore the tables w/ UUID fields from the cached TCA (since TCA/Overrides/ files
+        // are only executed once)
+        $GLOBALS['TCA'][$tableName]['ctrl']['uuid'] = true;
+
         $this->tablesWithUuidField[] = $tableName;
 
         ExtensionManagementUtility::addTCAcolumns($tableName, [
