@@ -63,4 +63,18 @@ class TableConfigurationServiceTest extends FunctionalTestCase
         static::assertInstanceOf(Table::class, $table);
         static::assertTrue($table->hasColumn('uuid'), 'Field "uuid" does not exist in table "tx_testextension_with_uuid"');
     }
+
+    /** @test */
+    public function uuidFieldIsAutomaticallyCreatedWhenEnabledViaTcaCtrlSection(): void
+    {
+        $conn = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionByName('Default');
+
+        /** @var Schema $schema */
+        $schema = $conn->getSchemaManager()->createSchema();
+
+        $table = $schema->getTable('tx_testextension_with_uuid_in_tca_ctrl');
+
+        static::assertInstanceOf(Table::class, $table);
+        static::assertTrue($table->hasColumn('uuid'), 'Field "uuid" does not exist in table "tx_testextension_with_uuid_in_tca_ctrl"');
+    }
 }

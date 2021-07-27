@@ -50,6 +50,8 @@ class TableConfigurationService implements SingletonInterface
      */
     public function getUuidFieldDefinitions(): array
     {
+        $this->addTablesWithEnabledUuidInTcaControlSection();
+
         return array_map(function (string $tableName) {
             return $this->createTableDefinition($tableName);
         }, $this->tablesWithUuidField);
@@ -68,5 +70,19 @@ CREATE TABLE $tableName (
 	KEY uuid (uuid)
 );
 SQL;
+    }
+
+    /**
+     * Loops over the TCA and adds tables that have uuid = true in their TCA ctrl section.
+     */
+    private function addTablesWithEnabledUuidInTcaControlSection(): void
+    {
+        foreach ($GLOBALS['TCA'] as $tableName => $configuration) {
+            if (array_key_exists('uuid', $configuration['ctrl']) && $configuration['ctrl']['uuid'] === true) {
+                $this->tablesWithUuidField[] = $tableName;
+            }
+        }
+
+        $this->tablesWithUuidField = array_unique($this->tablesWithUuidField);
     }
 }
