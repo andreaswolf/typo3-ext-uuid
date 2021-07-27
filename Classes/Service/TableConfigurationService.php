@@ -33,14 +33,26 @@ class TableConfigurationService implements SingletonInterface
     }
 
     /**
+     * Signal listener for TYPO3 v9
+     *
+     * @param string[] $existingDefinitions
+     * @return array{0: string[]} The list of SQL definitions for all registered tables
+     */
+    public function addUuidFieldsToDatabaseSchemaSlot(array $existingDefinitions): array
+    {
+        $sqlDefinitions = $this->getUuidFieldDefinitions();
+
+        return [array_merge($existingDefinitions, $sqlDefinitions)];
+    }
+
+    /**
      * @return string[]
      */
     public function getUuidFieldDefinitions(): array
     {
-        $sqlDefinitions = array_map(function (string $tableName) {
+        return array_map(function (string $tableName) {
             return $this->createTableDefinition($tableName);
         }, $this->tablesWithUuidField);
-        return $sqlDefinitions;
     }
 
     /**
