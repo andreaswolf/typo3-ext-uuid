@@ -11,6 +11,9 @@ class TableConfigurationService implements SingletonInterface
     /** @var string[] */
     private $tablesWithUuidField = [];
 
+    /** @var bool */
+    private $tablesFromTcaLoaded = false;
+
     public function enableUuidForTable(string $tableName): void
     {
         // This is required to later on restore the tables w/ UUID fields from the cached TCA (since TCA/Overrides/ files
@@ -18,6 +21,15 @@ class TableConfigurationService implements SingletonInterface
         $GLOBALS['TCA'][$tableName]['ctrl']['uuid'] = true;
 
         $this->tablesWithUuidField[] = $tableName;
+
+        $this->configureFieldInTca($tableName);
+    }
+
+    private function configureFieldInTca(string $tableName): void
+    {
+        if (isset($GLOBALS['TCA'][$tableName]['columns']['uuid'])) {
+            return;
+        }
 
         ExtensionManagementUtility::addTCAcolumns($tableName, [
             'uuid' => [
@@ -37,7 +49,7 @@ class TableConfigurationService implements SingletonInterface
     }
 
     /**
-     * Signal listener for TYPO3 v9
+     * Signal slot for TYPO3 v9
      *
      * @param string[] $existingDefinitions
      * @return array{0: string[]} The list of SQL definitions for all registered tables
@@ -47,6 +59,39 @@ class TableConfigurationService implements SingletonInterface
         $sqlDefinitions = $this->getUuidFieldDefinitions();
 
         return [array_merge($existingDefinitions, $sqlDefinitions)];
+    }
+
+    /**
+     * Signal slot for TYPO3 v9
+     *
+     * @param array<string, array{ctrl: array{uuid?: true}}> $TCA
+     * @return array{0: array<string, array{ctrl: array{uuid?: true}}>}
+     */
+    public function addUuidFieldsToTca(array $TCA): array
+    {
+        foreach ($TCA as $tableName => $configuration) {
+            if (array_key_exists('uuid', $configuration['ctrl']) && $configuration['ctrl']['uuid'] === true) {
+                if (!in_array($tableName, $this->tablesWithUuidField, true)) {
+                    $this->tablesWithUuidField[] = $tableName;
+                }
+
+                $this->configureFieldInTca($tableName);
+            }
+        }
+
+        return [$GLOBALS['TCA']];
+    }
+
+    /**
+     * Returns the names of all tables that have been enabled for UUID handling
+     *
+     * @return string[]
+     */
+    public function getTablesWithUuid(): array
+    {
+        $this->addTablesWithEnabledUuidInTcaControlSection();
+
+        return $this->tablesWithUuidField;
     }
 
     /**
@@ -81,6 +126,10 @@ SQL;
      */
     private function addTablesWithEnabledUuidInTcaControlSection(): void
     {
+        if ($this->tablesFromTcaLoaded === true) {
+            return;
+        }
+
         foreach ($GLOBALS['TCA'] as $tableName => $configuration) {
             if (array_key_exists('uuid', $configuration['ctrl']) && $configuration['ctrl']['uuid'] === true) {
                 $this->tablesWithUuidField[] = $tableName;
@@ -88,5 +137,7 @@ SQL;
         }
 
         $this->tablesWithUuidField = array_unique($this->tablesWithUuidField);
+
+        $this->tablesFromTcaLoaded = true;
     }
 }
