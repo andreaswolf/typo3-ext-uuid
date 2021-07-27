@@ -30,4 +30,19 @@ class UuidResolver
 
         return $result->fetchColumn(0) ?: null;
     }
+
+    /**
+     * @return array<string, mixed>|null
+     */
+    public function getRecordForUuid(string $uuid): ?array
+    {
+        $result = $this->connection
+            ->select(
+                ['*'],
+                $this->tableName,
+                ['uuid' => $uuid]
+            );
+
+        return $result->fetch(\PDO::FETCH_ASSOC) ?: null;
+    }
 }
