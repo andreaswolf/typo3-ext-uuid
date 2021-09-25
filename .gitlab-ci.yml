@@ -82,7 +82,7 @@ test:php:functional:
     - update-alternatives --set php /usr/bin/php$PHP_VERSION
     - composer require typo3/minimal:"$TYPO3_VERSION"
     - composer install --no-progress
-    - composer test:php:functional
+    - composer test:php:functional -- --testdox
   parallel:
     matrix:
       - PHP_VERSION:
