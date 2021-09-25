@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<T3DataSet>
+    <pages>
+        <uid>1</uid>
+        <pid>0</pid>
+        <title>Test page</title>
+        <uuid>137053f9-655b-4894-a74d-875d7e4169c9</uuid>
+    </pages>
+    <pages>
+        <uid>2</uid>
+        <pid>1</pid>
+        <title>Test subpage</title>
+        <uuid>b56867e6-88ae-49ea-9777-8d958c1a4f36</uuid>
+    </pages>
+    <tt_content>
+        <uid>1</uid>
+        <pid>1</pid>
+        <header>Test content element</header>
+        <uuid>e73d554c-fd4d-4e5d-bc11-23833daa3b9a</uuid>
+    </tt_content>
+</T3DataSet>

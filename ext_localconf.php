@@ -11,3 +11,9 @@ $signalSlotDispatcher->connect(
     \AndreasWolf\Uuid\Service\TableConfigurationService::class,
     'addUuidFieldsToDatabaseSchemaSlot'
 );
+$signalSlotDispatcher->connect(
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::class,
+    'tcaIsBeingBuilt',
+    \AndreasWolf\Uuid\Service\TableConfigurationService::class,
+    'addUuidFieldsToTca'
+);

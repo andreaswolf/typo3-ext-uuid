@@ -11,4 +11,11 @@ services:
         method: 'addUuidFieldsToDatabaseSchema'
         event: TYPO3\CMS\Core\Database\Event\AlterTableDefinitionStatementsEvent
 
+  AndreasWolf\Uuid\Service\TcaBuildEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'uuid-fields'
+        method: 'addUuidFieldsToTca'
+        event: TYPO3\CMS\Core\Configuration\Event\AfterTcaCompilationEvent
+
   AndreasWolf\Uuid\Service\TableConfigurationService: {}

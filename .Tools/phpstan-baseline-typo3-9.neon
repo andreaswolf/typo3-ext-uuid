@@ -10,3 +10,17 @@ parameters:
 			count: 1
 			path: ../Classes/Service/TableDefinitionEventListener.php
 
+		-
+			message: "#^Call to an undefined static method TYPO3\\\\CMS\\\\Core\\\\Utility\\\\GeneralUtility\\:\\:getContainer\\(\\)\\.$#"
+			count: 3
+			path: ../Tests/Functional/UuidResolverInjectionTest.php
+
+		-
+			message: "#^Call to method setTca\\(\\) on an unknown class TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\Event\\\\AfterTcaCompilationEvent\\.$#"
+			count: 1
+			path: ../Classes/Service/TcaBuildEventListener.php
+
+		-
+			message: "#^Parameter \\$event of method AndreasWolf\\\\Uuid\\\\Service\\\\TcaBuildEventListener\\:\\:addUuidFieldsToTca\\(\\) has invalid typehint type TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\Event\\\\AfterTcaCompilationEvent\\.$#"
+			count: 1
+			path: ../Classes/Service/TcaBuildEventListener.php

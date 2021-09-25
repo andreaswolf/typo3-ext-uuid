@@ -6,10 +6,10 @@ namespace AndreasWolf\Uuid\Tests\Functional\Service;
 use AndreasWolf\Uuid\Service\TableConfigurationService;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Table;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Schema\SqlReader;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class TableConfigurationServiceTest extends FunctionalTestCase
 {
@@ -18,6 +18,31 @@ class TableConfigurationServiceTest extends FunctionalTestCase
         'typo3conf/ext/uuid/',
         'typo3conf/ext/uuid/Tests/Functional/Fixtures/test_extension/',
     ];
+
+    /** @test */
+    public function getTablesWithUuidReturnsTablesFromTca(): void
+    {
+        $subject = GeneralUtility::makeInstance(TableConfigurationService::class);
+
+        $result = $subject->getTablesWithUuid();
+        sort($result);
+
+        // these are set in the TCA/Overrides/ folder in test_extension
+        static::assertSame(['pages', 'tt_content', 'tx_testextension_with_uuid', 'tx_testextension_with_uuid_in_tca_ctrl'], $result);
+    }
+
+    /** @test */
+    public function getTablesWithUuidReturnsManuallyRegisteredTables(): void
+    {
+        $tableName = 'tx_testextension_without_uuid';
+        $subject = GeneralUtility::makeInstance(TableConfigurationService::class);
+        $subject->enableUuidForTable($tableName);
+
+        $result = $subject->getTablesWithUuid();
+        sort($result);
+
+        static::assertGreaterThan(0, array_search($tableName, $result, true));
+    }
 
     /** @test */
     public function enableUuidForTableAddsUuidFieldToTCA(): void
@@ -93,5 +118,19 @@ class TableConfigurationServiceTest extends FunctionalTestCase
         $contentSchema = $schema->getTable('tt_content');
         static::assertInstanceOf(Table::class, $contentSchema);
         static::assertTrue($contentSchema->hasColumn('uuid'), 'Field "uuid" does not exist in table "tt_content"');
+    }
+
+    /** @test */
+    public function uuidFieldIsRegisteredInTcaForExistingCoreTablesIfAddedInTcaOverrides(): void
+    {
+        $tableName = 'pages';
+        static::assertIsArray($GLOBALS['TCA'][$tableName]['columns']['uuid']);
+        static::assertIsArray($GLOBALS['TCA'][$tableName]['types'][1]);
+        static::assertStringContainsString('uuid', $GLOBALS['TCA'][$tableName]['types'][1]['showitem']);
+
+        $tableName = 'tt_content';
+        static::assertIsArray($GLOBALS['TCA'][$tableName]['columns']['uuid']);
+        static::assertIsArray($GLOBALS['TCA'][$tableName]['types']['text']);
+        static::assertStringContainsString('uuid', $GLOBALS['TCA'][$tableName]['types']['text']['showitem']);
     }
 }
