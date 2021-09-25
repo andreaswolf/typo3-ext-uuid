@@ -1,2 +1,4 @@
+.idea/
 .Build/*
+.Tools/public/
 composer.lock
