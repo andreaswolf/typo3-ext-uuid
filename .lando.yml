@@ -1,0 +1,30 @@
+name: typo3-uuid
+recipe: lamp
+config:
+  webroot: .Build/public/
+
+services:
+  appserver:
+    overrides:
+      environment:
+        typo3DatabaseName: lamp
+        typo3DatabaseHost: database
+        typo3DatabaseUsername: lamp
+        typo3DatabasePassword: lamp
+
+        TYPO3_INSTALL_DB_DRIVER: mysqli
+        TYPO3_INSTALL_DB_USER: lamp
+        TYPO3_INSTALL_DB_PASSWORD: lamp
+        TYPO3_INSTALL_DB_HOST: database
+        TYPO3_INSTALL_DB_PORT: 3306
+        TYPO3_INSTALL_DB_DBNAME: typo3
+        TYPO3_INSTALL_DB_USE_EXISTING: y
+        TYPO3_INSTALL_DB_UNIX_SOCKET:
+        TYPO3_INSTALL_ADMIN_USER: admin
+        TYPO3_INSTALL_ADMIN_PASSWORD: password
+        TYPO3_INSTALL_SITE_NAME: andreaswolf/typo3-uuid integration test
+        TYPO3_INSTALL_SITE_SETUP_TYPE: no
+        TYPO3_INSTALL_WEB_SERVER_CONFIG: apache
+  database:
+    run:
+      - mysql -u root -e 'GRANT ALL ON `lamp_%`.* TO `lamp`@`%`;'
