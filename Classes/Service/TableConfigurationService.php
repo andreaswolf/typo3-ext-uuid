@@ -6,6 +6,14 @@ namespace AndreasWolf\Uuid\Service;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
+/**
+ * Takes care of updating the TCA for enabling UUIDs for tables.
+ *
+ * Enabling can be done in different ways:
+ *
+ * - calling enableUuidForTable() in a TCA/Overrides/ file (esp. for core or third-party tables that you have no control over)
+ * - setting [ctrl][uuid] to true (for tables from your own extension)
+ */
 class TableConfigurationService implements SingletonInterface
 {
     /** @var string[] */
@@ -14,6 +22,11 @@ class TableConfigurationService implements SingletonInterface
     /** @var bool */
     private $tablesFromTcaLoaded = false;
 
+    /**
+     * Enables UUIDs for the given table.
+     *
+     * Can be used for enabling UUIDs for tables w/ existing TCA, e.g. from the Core or third-party extensions.
+     */
     public function enableUuidForTable(string $tableName): void
     {
         // This is required to later on restore the tables w/ UUID fields from the cached TCA (since TCA/Overrides/ files
@@ -25,6 +38,9 @@ class TableConfigurationService implements SingletonInterface
         $this->configureFieldInTca($tableName);
     }
 
+    /**
+     * Configures the UUID field in the table's TCA field.
+     */
     private function configureFieldInTca(string $tableName): void
     {
         if (isset($GLOBALS['TCA'][$tableName]['columns']['uuid'])) {
@@ -49,7 +65,9 @@ class TableConfigurationService implements SingletonInterface
     }
 
     /**
-     * Signal slot for TYPO3 v9
+     * Signal slot for TYPO3 v9. Called while the SQL schema is compiled by the Install Tool.
+     *
+     * @see TableDefinitionEventListener for TYPO3 v10+.
      *
      * @param string[] $existingDefinitions
      * @return array{0: string[]} The list of SQL definitions for all registered tables
@@ -62,7 +80,11 @@ class TableConfigurationService implements SingletonInterface
     }
 
     /**
-     * Signal slot for TYPO3 v9
+     * Signal slot for TYPO3 v9. Called while the TCA is compiled by the Core's ExtensionManagementUtility.
+     *
+     * This is called after both the base TCA files and overrides have been evaluated, so we're sure that we know all
+     * tables that should have UUIDs enabled (both if they have [ctrl][uuid] initially set or if enableUuidForTable()
+     * was called).
      *
      * @param array<string, array{ctrl: array{uuid?: true}}> $TCA
      * @return array{0: array<string, array{ctrl: array{uuid?: true}}>}
@@ -95,6 +117,8 @@ class TableConfigurationService implements SingletonInterface
     }
 
     /**
+     * Returns the SQL definitions for all tables.
+     *
      * @return string[]
      */
     public function getUuidFieldDefinitions(): array
