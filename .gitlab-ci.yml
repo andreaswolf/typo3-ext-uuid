@@ -74,7 +74,7 @@ test:php:functional:
     typo3DatabasePassword: typo3
     typo3DatabaseHost: mysql-db
   services:
-    - name: mysql:5.7.34
+    - name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/mysql:5.7.34
       alias: mysql-db
   script:
     - mysql -h mysql-db -u root -proot mysql -e 'GRANT ALL ON `typo3_%`.* TO `typo3`@`%` IDENTIFIED BY "typo3"'
