@@ -7,9 +7,9 @@ use AndreasWolf\Uuid\UuidResolver;
 use AndreasWolf\UuidTestExtension\ClassWithAutowiredServiceDependency;
 use AndreasWolf\UuidTestExtension\ClassWithNamedServiceUuidResolverDependency;
 use AndreasWolf\UuidTestExtension\ClassWithUuidResolverDependency;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * Tests dependency injection via a TYPO3 v10 service

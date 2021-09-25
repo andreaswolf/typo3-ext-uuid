@@ -24,7 +24,7 @@
         "typo3/cms-frontend": "^9.5 || ^10.4 || ^11.3"
     },
     "require-dev": {
-        "nimut/testing-framework": "^5.2",
+        "typo3/testing-framework": "^4.15 || ^5.0 || ^6.11",
         "helhum/typo3-console": "^5.8 || ^6.6",
         "phpstan/phpstan": "^0.12.93",
         "saschaegerer/phpstan-typo3": "^0.13.3",

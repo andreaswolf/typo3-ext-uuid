@@ -6,10 +6,10 @@ namespace AndreasWolf\Uuid\Tests\Functional\Service;
 use AndreasWolf\Uuid\Service\TableConfigurationService;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Table;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Schema\SqlReader;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class TableConfigurationServiceTest extends FunctionalTestCase
 {

@@ -4,8 +4,8 @@ declare(strict_types = 1);
 namespace AndreasWolf\Uuid\Tests\Functional;
 
 use AndreasWolf\Uuid\UuidResolverFactory;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class UuidResolverFactoryTest extends FunctionalTestCase
 {
