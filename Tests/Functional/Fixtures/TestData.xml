@@ -5,12 +5,14 @@
         <pid>0</pid>
         <title>Test page</title>
         <uuid>137053f9-655b-4894-a74d-875d7e4169c9</uuid>
+        <is_siteroot>1</is_siteroot>
     </pages>
     <pages>
         <uid>2</uid>
         <pid>1</pid>
         <title>Test subpage</title>
         <uuid>b56867e6-88ae-49ea-9777-8d958c1a4f36</uuid>
+        <slug>/test-subpage</slug>
     </pages>
     <tt_content>
         <uid>1</uid>
@@ -18,4 +20,33 @@
         <header>Test content element</header>
         <uuid>e73d554c-fd4d-4e5d-bc11-23833daa3b9a</uuid>
     </tt_content>
+
+    <sys_template>
+        <uid>1</uid>
+        <pid>1</pid>
+        <root>1</root>
+        <config><![CDATA[
+config {
+    no_cache = 1
+    debug = 0
+    xhtml_cleaning = 0
+    admPanel = 0
+    disableAllHeaderCode = 1
+    sendCacheHeaders = 0
+}
+
+page = PAGE
+page.10 = TEXT
+page.10.typolink.parameter = t3://page?uuid=b56867e6-88ae-49ea-9777-8d958c1a4f36
+page.10.typolink.forceAbsoluteUrl = 1
+page.10.typolink.returnLast = url
+        ]]></config>
+    </sys_template>
+    <sys_template>
+        <uid>2</uid>
+        <pid>2</pid>
+        <config><![CDATA[
+page.10.typolink.parameter = t3://page?uuid=b56867e6-88ae-49ea-9777-8d958c1a4f36&some=other&parameters=here
+        ]]></config>
+    </sys_template>
 </T3DataSet>
