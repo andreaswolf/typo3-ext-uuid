@@ -51,8 +51,7 @@ static:php:
           - "^10.4"
       - PHP_VERSION:
           - "7.4"
-          # PHP 8 currently cannot be supported because nimut/testing-framework only supports PHP 7.x
-          #- "8.0"
+          - "8.0"
         TYPO3_VERSION:
           - "^11.3"
 
@@ -93,7 +92,6 @@ test:php:functional:
           - "^10.4"
       - PHP_VERSION:
           - "7.4"
-          # PHP 8 currently cannot be supported because nimut/testing-framework only supports PHP 7.x
-          #- "8.0"
+          - "8.0"
         TYPO3_VERSION:
           - "^11.3"
