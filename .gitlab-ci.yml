@@ -1,4 +1,4 @@
-image: core.a-w.io/aw/docker-webbuild:v12
+image: core.a-w.io/aw/docker-webbuild:v14
 
 variables:
   COMPOSER_ALLOW_SUPERUSER: 1
