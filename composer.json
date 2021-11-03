@@ -25,7 +25,7 @@
     },
     "require-dev": {
         "typo3/testing-framework": "^4.15 || ^5.0 || ^6.11",
-        "helhum/typo3-console": "^5.8 || ^6.6",
+        "helhum/typo3-console": "^5.8 || ^6.6 || ^7.0",
         "phpstan/phpstan": "^0.12.93",
         "saschaegerer/phpstan-typo3": "^0.13.3",
         "phpstan/phpstan-phpunit": "^0.12.21",
@@ -49,13 +49,6 @@
         "vendor-dir": ".Build/vendor"
     },
     "scripts": {
-        "link-extension": [
-            "@php -r 'is_dir($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
-            "@php -r 'file_exists($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/uuid\") || symlink(__DIR__,$extFolder);'"
-        ],
-        "post-autoload-dump": [
-            "@link-extension"
-        ],
         "cs:check": "@composer cs:check -d .Tools/",
         "cs:fix": "@composer cs:fix -d .Tools/",
         "analyse": "phpstan analyse --ansi --no-progress --memory-limit=256M --configuration=.Tools/phpstan.php",
