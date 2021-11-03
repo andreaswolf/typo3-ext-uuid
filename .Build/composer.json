@@ -1,0 +1,35 @@
+{
+  "name": "andreaswolf/typo3-uuid-test-package",
+  "type": "project",
+  "description": "Test bed for the extension",
+  "repositories": [
+    { "type": "path", "url": "../"}
+  ],
+  "require": {
+    "php": "^7.3 || ~8.0",
+    "andreaswolf/typo3-uuid": "@dev"
+  },
+  "require-dev": {
+    "typo3/testing-framework": "^4.15 || ^5.0 || ^6.11",
+    "helhum/typo3-console": "^5.8 || ^6.6 || ^7.0"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AndreasWolf\\Uuid\\Tests\\": "public/typo3conf/ext/uuid/Tests/"
+    },
+    "classmap": [
+      "public/typo3conf/ext/uuid/Tests/Functional/Fixtures/test_extension"
+    ]
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "typo3/cms": {
+      "cms-package-dir": "{$vendor-dir}/typo3/cms"
+    }
+  },
+  "scripts": {
+    "test:php:functional": "phpunit --config=../.Tools/phpunit-functional.xml"
+  }
+}

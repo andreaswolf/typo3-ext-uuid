@@ -49,13 +49,6 @@
         "vendor-dir": ".Build/vendor"
     },
     "scripts": {
-        "link-extension": [
-            "@php -r 'is_dir($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
-            "@php -r 'file_exists($extFolder=__DIR__.\"/.Build/public/typo3conf/ext/uuid\") || symlink(__DIR__,$extFolder);'"
-        ],
-        "post-autoload-dump": [
-            "@link-extension"
-        ],
         "cs:check": "@composer cs:check -d .Tools/",
         "cs:fix": "@composer cs:fix -d .Tools/",
         "analyse": "phpstan analyse --ansi --no-progress --memory-limit=256M --configuration=.Tools/phpstan.php",

@@ -1,4 +1,5 @@
 .idea/
 .Build/*
+!.Build/composer.json
 .Tools/public/
 composer.lock

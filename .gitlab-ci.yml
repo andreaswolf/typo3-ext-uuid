@@ -79,6 +79,7 @@ test:php:functional:
     - mysql -h mysql-db -u root -proot mysql -e 'GRANT ALL ON `typo3_%`.* TO `typo3`@`%` IDENTIFIED BY "typo3"'
 
     - update-alternatives --set php /usr/bin/php$PHP_VERSION
+    - cd .Build/
     - composer require typo3/minimal:"$TYPO3_VERSION"
     - composer install --no-progress
     - composer test:php:functional -- --testdox
