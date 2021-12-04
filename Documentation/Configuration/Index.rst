@@ -6,11 +6,4 @@
 Configuration
 =============
 
-.. toctree::
-   :maxdepth: 5
-   :titlesonly:
-
-   General
-   TypoScriptReference/Index
-   TSconfig
-
+There is not much configuration to do for this extension.
