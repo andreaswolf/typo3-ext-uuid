@@ -7,6 +7,9 @@ use AndreasWolf\Uuid\UuidResolverFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
+/**
+ * @covers \AndreasWolf\Uuid\UuidResolverFactory
+ */
 class UuidResolverFactoryTest extends FunctionalTestCase
 {
     /** @var string[] */
