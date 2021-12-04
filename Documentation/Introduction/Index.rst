@@ -6,36 +6,26 @@
 Introduction
 ============
 
-.. tip::
-
-   New to reStructuredText and Sphinx?
-
-   Get an introduction:
-   https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingReST/Index.html
-
-   Use this cheat sheet as reference:
-   https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingReST/CheatSheet.html
-
 .. _what-it-does:
 
 What does it do?
 ================
 
-The aim of this chapter is to provide a general overview of your extension.
+This extension provides support for Universally Unique Identifiers (UUIDs) in TYPO3.
 
-*  What does it do?
-*  What problems does it solve?
-*  Who is the target audience?
+From Wikipedia:
 
-This chapter should provide information that will help inform
-potential users and assist them in deciding if they should
-install and use this extension.
+.. epigraph::
 
-.. important::
+   A universally unique identifier (UUID) is a 128-bit label used for information in computer systems.
 
-   Do not forget to set extension's version number in :file:`Settings.cfg` file,
-   in the :code:`release` property.
-   It will be automatically picked up on the cover page by the :code:`|release|` substitution.
+   -- https://en.wikipedia.org/wiki/Universally_unique_identifier
+
+With the help of this extension, a UUID can be added to possibly every record in TYPO3.
+This allows for e.g. safely identifying records that were added by a migration
+(in contrast to their ``uid``,
+which depends on the time of execution of the migration,
+which will be different in each instance like development, stage and production).
 
 .. _screenshots:
 

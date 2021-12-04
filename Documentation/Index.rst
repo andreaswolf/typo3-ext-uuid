@@ -9,7 +9,7 @@
 .. _start:
 
 =============================================================
-Extension Name
+UUID
 =============================================================
 
 :Version:
@@ -19,10 +19,10 @@ Extension Name
    en
 
 :Authors:
-   Your name
+   Andreas Wolf
 
 :Email:
-   you@domain.tld
+   dev (at) a-w.io
 
 :License:
    This extension documentation is published under the
@@ -38,7 +38,7 @@ a GNU/GPL CMS/Framework available from `typo3.org <https://typo3.org/>`_ .
 
 **Community Documentation**
 
-This documentation is community documentation for the TYPO3 extension {extension.name}
+This documentation is community documentation for the TYPO3 extension ``uuid``.
 
 It is maintained as part of this third party extension.
 
@@ -47,7 +47,7 @@ If you find an error or something is missing, please:
 
 **Extension Manual**
 
-This documentation is for the TYPO3 extension <extkey>.
+This documentation is for the TYPO3 extension ``uuid``.
 
 **For Contributors**
 

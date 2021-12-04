@@ -3,102 +3,43 @@
 
 .. _developer:
 
-================
-Developer corner
-================
-
-Use this section to provide examples of code or detail any information that would be deemed relevant to a developer.
-
-For example explain how a certain feature was implemented.
-
+==============
+For Developers
+==============
 
 .. _developer-api:
 
 API
 ===
 
-How to use the API...
+Enabling UUIDs for your own tables
+----------------------------------
 
-Interfaces
-----------
+Adding UUIDs to your extension’s tables is easy:
+Just add ``uuid = true`` to the ``ctrl`` section in your table’s TCA file:
 
-The following list provides information for all necessary interfaces that are
-used inside of this documentation. For up to date information, please check
-the source code.
+``Configuration/TCA/tx_yourext_yourtable.php``::
 
-
-.. php:namespace:: Vendor\MyExtension\Interfaces
-
-.. php:class:: ExampleInterface
-
-   Has to be implemented by all ...
-
-   .. php:method:: methodOne()
-
-      :returntype: string
-      :returns: Something important
-
-.. php:class:: AnotherImportantInterface
-
-   Used for ...
-
-   .. php:class:: RequireJsModuleInterface
-
-   Widgets implementing this interface will add the provided RequireJS modules.
-   Those modules will be loaded in dashboard view if the widget is added at least once.
-
-   .. php:method:: getRequireJsModules()
-
-      Returns a list of RequireJS modules that should be loaded, e.g.::
-
-         return [
-             'TYPO3/CMS/MyExtension/ModuleName',
-             'TYPO3/CMS/MyExtension/Module2Name',
-         ];
-
-      See also :ref:`t3coreapi:requirejs` for further information regarding RequireJS
-      in TYPO3 Backend.
-
-      :returntype: array
-      :returns: List of modules to require.
-
-   .. php:method:: getHeight()
-
-      :returntype: int
-      :returns: Height of a widget in rows (1-6).
+   return [
+       'ctrl' => [
+           // other configuration options here
+           'uuid' => true,
+       ],
+       'columns' => [
+           // …
+       ],
+   ];
 
 
-Examples
---------
+Enabling UUIDs for Core/third-party tables
+------------------------------------------
 
-A php example::
+Enabling the UUIDs for existing tables is done via a service that can be called in TCA override files.
 
-   // use \TYPO3\CMS\Core\Utility\GeneralUtility;
-   $stuff = GeneralUtility::makeInstance(
-      '\\Foo\\Bar\\Utility\\Stuff'
+To enable UUIDs for the ``pages`` table,
+place this ``pages.php`` file in your extensions‘s ``Configuration/TCA/Overrides/`` folder::
+
+   $tableConfigurationService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+       \AndreasWolf\Uuid\Service\TableConfigurationService::class
    );
-   $stuff->do();
-
-Example in another language:
-
-.. code-block:: javascript
-   :linenos:
-   :emphasize-lines: 2-4
-
-   $(document).ready(
-      function () {
-         doStuff();
-      }
-   );
-
-A YAML example:
-
-.. code-block:: yaml
-
-   services:
-     Vendor\Extension\EventListener\YourListener:
-       tags:
-         - name: event.listener
-           identifier: 'your-self-choosen-identifier'
-           method: 'methodToConnectToEvent'
-           event: Vendor\MyExtension\Event\MyActionEvent
+   $tableConfigurationService->enableUuidForTable('pages');
