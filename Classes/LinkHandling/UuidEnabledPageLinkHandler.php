@@ -11,6 +11,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Extension of the core page link handler.
  *
  * Allows using links like t3://page?uuid=a7d52cb3-e3f0-4a0c-b2cb-2962e414c33b.
+ *
+ * To enable this, add the following line to your AdditionalConfiguration.php (it's not enabled by default for now since
+ * it was not tested widely enough):
+ *
+ * $GLOBALS['TYPO3_CONF_VARS']['SYS']['linkHandler']['page'] = \AndreasWolf\Uuid\LinkHandling\UuidEnabledPageLinkHandler::class;
  */
 class UuidEnabledPageLinkHandler extends PageLinkHandler
 {
