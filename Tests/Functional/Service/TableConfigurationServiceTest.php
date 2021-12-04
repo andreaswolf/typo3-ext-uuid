@@ -11,6 +11,9 @@ use TYPO3\CMS\Core\Database\Schema\SqlReader;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
+/**
+ * @covers \AndreasWolf\Uuid\Service\TableConfigurationService
+ */
 class TableConfigurationServiceTest extends FunctionalTestCase
 {
     /** @var string[] */

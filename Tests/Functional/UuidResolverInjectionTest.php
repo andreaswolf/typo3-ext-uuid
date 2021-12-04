@@ -13,6 +13,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * Tests dependency injection via a TYPO3 v10 service
+ *
+ * @covers \AndreasWolf\Uuid\UuidResolver
  */
 class UuidResolverInjectionTest extends FunctionalTestCase
 {

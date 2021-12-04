@@ -7,7 +7,7 @@ use AndreasWolf\Uuid\LinkHandling\UuidEnabledPageLinkHandler;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
- * @covers \AndreasWolf\Uuid\Typolink\UuidEnabledPageLinkBuilder
+ * @covers \AndreasWolf\Uuid\LinkHandling\UuidEnabledPageLinkHandler
  */
 class UuidEnabledPageLinkHandlerTest extends FunctionalTestCase
 {

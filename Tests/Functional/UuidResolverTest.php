@@ -8,6 +8,9 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
+/**
+ * @covers \AndreasWolf\Uuid\UuidResolver
+ */
 class UuidResolverTest extends FunctionalTestCase
 {
     /** @var string[] */
