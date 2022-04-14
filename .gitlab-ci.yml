@@ -96,3 +96,10 @@ test:php:functional:
           - "8.0"
         TYPO3_VERSION:
           - "^11.5"
+
+satis:update:
+  stage: publish
+  trigger:
+    project: typo3-ext/satis-repo
+    branch: main
+
