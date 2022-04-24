@@ -1,4 +1,4 @@
-image: core.a-w.io/aw/docker-webbuild:v14
+image: core.a-w.io/aw/docker-webbuild:v18
 
 variables:
   COMPOSER_ALLOW_SUPERUSER: 1
@@ -28,6 +28,7 @@ code-style:php:
       - PHP_VERSION:
           - "7.4"
           - "8.0"
+          - "8.1"
 
 static:php:
   tags:
@@ -49,6 +50,7 @@ static:php:
       - PHP_VERSION:
           - "7.4"
           - "8.0"
+          - "8.1"
         TYPO3_VERSION:
           - "^11.5"
 
@@ -89,5 +91,6 @@ test:php:functional:
       - PHP_VERSION:
           - "7.4"
           - "8.0"
+          - "8.1"
         TYPO3_VERSION:
           - "^11.5"
