@@ -26,7 +26,6 @@ code-style:php:
   parallel:
     matrix:
       - PHP_VERSION:
-          - "7.3"
           - "7.4"
           - "8.0"
 
@@ -44,10 +43,8 @@ static:php:
   parallel:
     matrix:
       - PHP_VERSION:
-          - "7.3"
           - "7.4"
         TYPO3_VERSION:
-          - "^9.5"
           - "^10.4"
       - PHP_VERSION:
           - "7.4"
@@ -86,10 +83,8 @@ test:php:functional:
   parallel:
     matrix:
       - PHP_VERSION:
-          - "7.3"
           - "7.4"
         TYPO3_VERSION:
-          - "^9.5"
           - "^10.4"
       - PHP_VERSION:
           - "7.4"

@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace AndreasWolf\Uuid;
 
+use Doctrine\DBAL\ForwardCompatibility\Result;
 use TYPO3\CMS\Core\Database\Connection;
 
 class UuidResolver
@@ -21,6 +22,7 @@ class UuidResolver
 
     public function getUidForUuid(string $uuid): ?int
     {
+        /** @var Result<array{uid: int}> $result */
         $result = $this->connection
             ->select(
                 ['uid'],
@@ -36,6 +38,7 @@ class UuidResolver
      */
     public function getRecordForUuid(string $uuid): ?array
     {
+        /** @var Result<array<string, mixed>> $result */
         $result = $this->connection
             ->select(
                 ['*'],
