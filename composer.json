@@ -19,9 +19,9 @@
     "license": "GPL-2.0-or-later",
     "require": {
         "php": "^7.3 || ~8.0",
-        "typo3/cms-core": "^9.5 || ^10.4 || ^11.3",
-        "typo3/cms-fluid": "^9.5 || ^10.4 || ^11.3",
-        "typo3/cms-frontend": "^9.5 || ^10.4 || ^11.3"
+        "typo3/cms-core": "^10.4 || ^11.3",
+        "typo3/cms-fluid": "^10.4 || ^11.3",
+        "typo3/cms-frontend": "^10.4 || ^11.3"
     },
     "require-dev": {
         "helhum/typo3-console": "^5.8 || ^6.6 || ^7.0",
