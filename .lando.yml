@@ -2,6 +2,7 @@ name: typo3-uuid
 recipe: lamp
 config:
   webroot: .Build/public/
+  composer_version: 2.3.5
 
 services:
   appserver:
