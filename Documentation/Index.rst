@@ -66,7 +66,6 @@ Just click on "Edit me on GitHub" on the top right to submit your change request
 .. toctree::
    :maxdepth: 3
 
-   Editor/Index
    Installation/Index
    Configuration/Index
    Developer/Index
