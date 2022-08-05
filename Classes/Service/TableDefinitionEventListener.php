@@ -7,11 +7,6 @@ use TYPO3\CMS\Core\Database\Event\AlterTableDefinitionStatementsEvent;
 
 /**
  * Event listener for TYPO3 v10+.
- *
- * See TableConfigurationService::addUuidFieldsToDatabaseSchemaSlot() for the same functionality in TYPO3 v9.
- *
- * This is a separate class because TYPO3 v9 throws an exception when reflecting a class w/ a method that has an undefined
- * class as type parameter (even if that method is never invoked)
  */
 class TableDefinitionEventListener
 {
