@@ -16,6 +16,7 @@ stages:
 code-style:php:
   tags:
     - docker
+  interruptible: true
   stage: code-check
   only:
     - merge_requests
@@ -33,6 +34,7 @@ code-style:php:
 static:php:
   tags:
     - docker
+  interruptible: true
   stage: code-check
   only:
     - merge_requests
