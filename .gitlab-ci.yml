@@ -13,7 +13,8 @@ workflow:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
     # run scheduled builds
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
-
+    # run manually started pipelines
+    - if: '$CI_PIPELINE_SOURCE == "web"'
 
 stages:
   - code-check
@@ -26,6 +27,8 @@ code-style:php:
   tags:
     - docker
   interruptible: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "schedule"'
   stage: code-check
   script:
     - update-alternatives --set php /usr/bin/php$PHP_VERSION
@@ -42,6 +45,8 @@ static:php:
   tags:
     - docker
   interruptible: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "schedule"'
   stage: code-check
   script:
     - update-alternatives --set php /usr/bin/php$PHP_VERSION
@@ -65,6 +70,8 @@ build:docs:
   tags:
     - shell
   interruptible: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
   stage: build
   needs: []
   script:
@@ -80,6 +87,8 @@ test:php:functional:
   tags:
     - docker
   stage: test
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_PIPELINE_SOURCE == "schedule"'
   allow_failure: false
   variables:
     MYSQL_PASSWORD: typo3
@@ -114,9 +123,28 @@ test:php:functional:
         TYPO3_VERSION:
           - "^11.5"
 
-satis:update:
+publish:satis:
   stage: publish
   trigger:
     project: typo3-ext/satis-repo
     branch: main
 
+publish:ter:
+  stage: publish
+  tags:
+    - docker
+  rules:
+    - if: '$CI_COMMIT_TAG'
+      when: manual
+      variables:
+        RELEASE_TAG: '$CI_COMMIT_TAG'
+    - if: '$CI_PIPELINE_SOURCE == "web" && $RELEASE_TAG != ""'
+  script:
+    - composer global require typo3/tailor
+    - echo -e "Preparing upload of release ${RELEASE_TAG} to TER\n"
+      # Cleanup before we upload
+    - git reset --hard HEAD && git clean -fx
+      # Upload
+    - RELEASE_MESSAGE=${RELEASE_MESSAGE:-$(git tag -n10 -l ${RELEASE_TAG} | sed 's/^[0-9.]*[ ]*//g')}
+    - echo "Uploading release ${RELEASE_TAG} to TER"
+    - $(composer global config bin-dir --absolute --quiet)/tailor ter:publish --comment "${RELEASE_MESSAGE}" "${RELEASE_TAG}" "${TYPO3_EXTENSION_KEY}"
