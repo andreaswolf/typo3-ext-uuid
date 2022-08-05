@@ -149,4 +149,5 @@ publish:ter:
       # Upload
     - RELEASE_MESSAGE=${RELEASE_MESSAGE:-$(git tag -n10 -l ${RELEASE_TAG} | sed 's/^[0-9.]*[ ]*//g')}
     - echo "Uploading release ${RELEASE_TAG} to TER"
+    - $(composer global config bin-dir --absolute --quiet)/tailor set-version ${RELEASE_TAG}
     - $(composer global config bin-dir --absolute --quiet)/tailor ter:publish --comment "${RELEASE_MESSAGE}" "${RELEASE_TAG}" "${TYPO3_EXTENSION_KEY}"
