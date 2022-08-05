@@ -17,6 +17,7 @@ workflow:
 
 stages:
   - code-check
+  - build
   - test
   - publish
 
@@ -60,6 +61,20 @@ static:php:
         TYPO3_VERSION:
           - "^11.5"
 
+build:docs:
+  tags:
+    - shell
+  interruptible: true
+  stage: build
+  needs: []
+  script:
+    - source <(docker run --rm t3docs/render-documentation show-shell-commands)
+    - dockrun_t3rd makehtml
+  artifacts:
+    paths:
+      - Documentation-GENERATED-temp
+    expire_in: 30 days
+    expose_as: documentation
 
 test:php:functional:
   tags:
