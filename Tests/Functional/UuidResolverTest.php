@@ -13,7 +13,6 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class UuidResolverTest extends FunctionalTestCase
 {
-    /** @var string[] */
     protected $testExtensionsToLoad = [
         'typo3conf/ext/uuid/',
         'typo3conf/ext/uuid/Tests/Functional/Fixtures/test_extension/',
