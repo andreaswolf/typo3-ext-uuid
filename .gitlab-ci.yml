@@ -7,8 +7,17 @@ variables:
   COMPOSER_CACHE_DIR: /cache/fes/composer
   npm_config_cache: /cache/fes/npm
 
+workflow:
+  rules:
+    # run if something happened in a merge request
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    # run scheduled builds
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+
+
 stages:
   - code-check
+  - build
   - test
   - publish
 
@@ -18,8 +27,6 @@ code-style:php:
     - docker
   interruptible: true
   stage: code-check
-  only:
-    - merge_requests
   script:
     - update-alternatives --set php /usr/bin/php$PHP_VERSION
     - composer install --no-progress -d .Tools/
@@ -36,8 +43,6 @@ static:php:
     - docker
   interruptible: true
   stage: code-check
-  only:
-    - merge_requests
   script:
     - update-alternatives --set php /usr/bin/php$PHP_VERSION
     - composer require typo3/minimal:"$TYPO3_VERSION"
@@ -56,13 +61,25 @@ static:php:
         TYPO3_VERSION:
           - "^11.5"
 
+build:docs:
+  tags:
+    - shell
+  interruptible: true
+  stage: build
+  needs: []
+  script:
+    - source <(docker run --rm t3docs/render-documentation show-shell-commands)
+    - dockrun_t3rd makehtml
+  artifacts:
+    paths:
+      - Documentation-GENERATED-temp
+    expire_in: 30 days
+    expose_as: documentation
 
 test:php:functional:
   tags:
     - docker
   stage: test
-  only:
-    - merge_requests
   allow_failure: false
   variables:
     MYSQL_PASSWORD: typo3
