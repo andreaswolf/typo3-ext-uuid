@@ -65,21 +65,6 @@ class TableConfigurationService implements SingletonInterface
     }
 
     /**
-     * Signal slot for TYPO3 v9. Called while the SQL schema is compiled by the Install Tool.
-     *
-     * @see TableDefinitionEventListener for TYPO3 v10+.
-     *
-     * @param string[] $existingDefinitions
-     * @return array{0: string[]} The list of SQL definitions for all registered tables
-     */
-    public function addUuidFieldsToDatabaseSchemaSlot(array $existingDefinitions): array
-    {
-        $sqlDefinitions = $this->getUuidFieldDefinitions();
-
-        return [array_merge($existingDefinitions, $sqlDefinitions)];
-    }
-
-    /**
      * Signal slot for TYPO3 v9. Called while the TCA is compiled by the Core's ExtensionManagementUtility.
      *
      * This is called after both the base TCA files and overrides have been evaluated, so we're sure that we know all
