@@ -72,6 +72,8 @@ build:docs:
   tags:
     - shell
   interruptible: true
+  # temporarily allowing failures because the Docker-based docs build is broken as of 2023-04
+  allow_failure: true
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
   stage: build
