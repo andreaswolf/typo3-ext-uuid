@@ -31,11 +31,15 @@ class UuidPreprocessor implements SingletonInterface
      */
     public function resolveUuidInTypoScript(array $params): string
     {
-        [$table, $uid] = GeneralUtility::trimExplode(',', $params['functionArgument']);
+        [$table, $uuidOrListOfUuids] = GeneralUtility::trimExplode(',', $params['functionArgument'], true, 2);
+        $uuids = GeneralUtility::trimExplode(',', $uuidOrListOfUuids);
 
         $tableUuidResolver = $this->resolverFactory->getResolverForTable($table);
-        $uid = $tableUuidResolver->getUidForUuid($uid);
+        $uids = array_map(
+            static fn (string $uuid) => $tableUuidResolver->getUidForUuid($uuid),
+            $uuids
+        );
 
-        return $uid !== null ? (string)$uid : '';
+        return implode(',', array_filter($uids));
     }
 }
