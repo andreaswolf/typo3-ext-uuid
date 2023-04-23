@@ -26,3 +26,9 @@ This allows for e.g. safely identifying records that were added by a migration
 (in contrast to their ``uid``,
 which depends on the time of execution of the migration,
 which will be different in each instance like development, stage and production).
+
+
+Change Log
+==========
+
+* Version 0.2.2: Fixed version constraint in ``ext_emconf.php``.
