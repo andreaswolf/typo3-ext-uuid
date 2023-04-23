@@ -31,4 +31,12 @@ which will be different in each instance like development, stage and production)
 Change Log
 ==========
 
-* Version 0.2.2: Fixed version constraint in ``ext_emconf.php``.
+Version 0.3.3
+-------------
+
+Allow resolving multiple UUIDs in the TypoScript function ``uuid``, separated by commas.
+
+Version 0.2.2
+-------------
+
+Fixed version constraint in ``ext_emconf.php``.
