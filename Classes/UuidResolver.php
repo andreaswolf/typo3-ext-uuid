@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace AndreasWolf\Uuid;
 
-use Doctrine\DBAL\ForwardCompatibility\Result;
+use Doctrine\DBAL\Result;
 use TYPO3\CMS\Core\Database\Connection;
 
 class UuidResolver
@@ -30,7 +30,7 @@ class UuidResolver
                 ['uuid' => $uuid]
             );
 
-        return $result->fetchColumn(0) ?: null;
+        return $result->fetchOne() ?: null;
     }
 
     /**
@@ -46,6 +46,6 @@ class UuidResolver
                 ['uuid' => $uuid]
             );
 
-        return $result->fetch(\PDO::FETCH_ASSOC) ?: null;
+        return $result->fetchAssociative() ?: null;
     }
 }
