@@ -20,6 +20,9 @@ class UuidResolver
         $this->tableName = $tableName;
     }
 
+    /**
+     * @return int<1, max>|null
+     */
     public function getUidForUuid(string $uuid): ?int
     {
         /** @var Result<array{uid: int}> $result */
