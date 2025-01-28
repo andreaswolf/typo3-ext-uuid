@@ -4,6 +4,12 @@ services:
     autoconfigure: true
     public: false
 
+  AndreasWolf\Uuid\TypoScript\ResolveUuidInTypoScriptEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'uuid'
+        event: TYPO3\CMS\Core\TypoScript\AST\Event\EvaluateModifierFunctionEvent
+
   AndreasWolf\Uuid\Service\TableDefinitionEventListener:
     tags:
       - name: event.listener
