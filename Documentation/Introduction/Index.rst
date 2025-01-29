@@ -31,7 +31,12 @@ which will be different in each instance like development, stage and production)
 Change Log
 ==========
 
-Version 0.3.3
+Version 0.4.0
+-------------
+
+Compatibility with TYPO3 v12 and v13. Earlier versions are not supported anymore.
+
+Version 0.3.0
 -------------
 
 Allow resolving multiple UUIDs in the TypoScript function ``uuid``, separated by commas.
