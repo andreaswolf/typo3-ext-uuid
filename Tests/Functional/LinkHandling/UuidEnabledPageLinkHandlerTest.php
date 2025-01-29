@@ -11,16 +11,16 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class UuidEnabledPageLinkHandlerTest extends FunctionalTestCase
 {
-    protected $coreExtensionsToLoad = [
+    protected array $coreExtensionsToLoad = [
         'recordlist',
     ];
 
-    protected $testExtensionsToLoad = [
+    protected array $testExtensionsToLoad = [
         'typo3conf/ext/uuid/',
         'typo3conf/ext/uuid/Tests/Functional/Fixtures/test_extension/',
     ];
 
-    protected $pathsToLinkInTestInstance = [
+    protected array $pathsToLinkInTestInstance = [
         'typo3conf/ext/uuid/Tests/Functional/Fixtures/sites' => 'typo3conf/sites'
     ];
 
