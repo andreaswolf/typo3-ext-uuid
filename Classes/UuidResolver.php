@@ -22,7 +22,6 @@ class UuidResolver
 
     public function getUidForUuid(string $uuid): ?int
     {
-        /** @var Result<array{uid: int}> $result */
         $result = $this->connection
             ->select(
                 ['uid'],
@@ -38,7 +37,6 @@ class UuidResolver
      */
     public function getRecordForUuid(string $uuid): ?array
     {
-        /** @var Result<array<string, mixed>> $result */
         $result = $this->connection
             ->select(
                 ['*'],

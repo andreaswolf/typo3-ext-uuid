@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace AndreasWolf\Uuid\Tests\Functional\Service;
 
 use AndreasWolf\Uuid\Service\TableConfigurationService;
-use Doctrine\DBAL\Schema\Schema;
+use AndreasWolf\Uuid\Tests\Functional\ImportXmlDataSet;
 use Doctrine\DBAL\Schema\Table;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Schema\SqlReader;
@@ -16,6 +16,8 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class TableConfigurationServiceTest extends FunctionalTestCase
 {
+    use ImportXmlDataSet;
+
     protected array $testExtensionsToLoad = [
         'typo3conf/ext/uuid/',
         'typo3conf/ext/uuid/Tests/Functional/Fixtures/test_extension/',
@@ -82,8 +84,7 @@ class TableConfigurationServiceTest extends FunctionalTestCase
     {
         $conn = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionByName('Default');
 
-        /** @var Schema $schema */
-        $schema = $conn->getSchemaManager()->createSchema();
+        $schema = $conn->createSchemaManager()->introspectSchema();
 
         $table = $schema->getTable('tx_testextension_with_uuid');
 
@@ -96,8 +97,7 @@ class TableConfigurationServiceTest extends FunctionalTestCase
     {
         $conn = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionByName('Default');
 
-        /** @var Schema $schema */
-        $schema = $conn->getSchemaManager()->createSchema();
+        $schema = $conn->createSchemaManager()->introspectSchema();
 
         $table = $schema->getTable('tx_testextension_with_uuid_in_tca_ctrl');
 
@@ -110,8 +110,7 @@ class TableConfigurationServiceTest extends FunctionalTestCase
     {
         $conn = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionByName('Default');
 
-        /** @var Schema $schema */
-        $schema = $conn->getSchemaManager()->createSchema();
+        $schema = $conn->createSchemaManager()->introspectSchema();
 
         $pagesSchema = $schema->getTable('pages');
         static::assertInstanceOf(Table::class, $pagesSchema);
