@@ -1,4 +1,4 @@
-image: core.a-w.io/aw/docker-webbuild:v18
+image: core.a-w.io/aw/docker-webbuild:v24.1
 
 variables:
   COMPOSER_ALLOW_SUPERUSER: 1
@@ -39,9 +39,9 @@ code-style:php:
   parallel:
     matrix:
       - PHP_VERSION:
-          - "7.4"
-          - "8.0"
           - "8.1"
+          - "8.2"
+          - "8.3"
 
 static:php:
   tags:
@@ -58,15 +58,16 @@ static:php:
   parallel:
     matrix:
       - PHP_VERSION:
-          - "7.4"
-        TYPO3_VERSION:
-          - "^10.4"
-      - PHP_VERSION:
-          - "7.4"
-          - "8.0"
           - "8.1"
+          - "8.2"
+          - "8.3"
         TYPO3_VERSION:
-          - "^11.5"
+          - "^12.4"
+      - PHP_VERSION:
+          - "8.2"
+          - "8.3"
+        TYPO3_VERSION:
+          - "^13.4"
 
 build:docs:
   tags:
@@ -117,15 +118,16 @@ test:php:functional:
   parallel:
     matrix:
       - PHP_VERSION:
-          - "7.4"
-        TYPO3_VERSION:
-          - "^10.4"
-      - PHP_VERSION:
-          - "7.4"
-          - "8.0"
           - "8.1"
+          - "8.2"
+          - "8.3"
         TYPO3_VERSION:
-          - "^11.5"
+          - "^12.4"
+      - PHP_VERSION:
+          - "8.2"
+          - "8.3"
+        TYPO3_VERSION:
+          - "^13.4"
 
 publish:satis:
   stage: publish

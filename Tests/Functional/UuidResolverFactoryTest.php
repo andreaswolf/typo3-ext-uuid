@@ -12,7 +12,9 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 class UuidResolverFactoryTest extends FunctionalTestCase
 {
-    protected $testExtensionsToLoad = [
+    use ImportXmlDataSet;
+
+    protected array $testExtensionsToLoad = [
         'typo3conf/ext/uuid/',
         'typo3conf/ext/uuid/Tests/Functional/Fixtures/test_extension/',
     ];

@@ -6,26 +6,28 @@
     { "type": "path", "url": "../"}
   ],
   "require": {
-    "php": "^7.4 || ^8.0",
-    "andreaswolf/typo3-uuid": "@dev"
+    "php": "^8.1",
+    "andreaswolf/typo3-uuid": "@dev",
+    "helhum/dotenv-connector": "^3.1"
   },
   "require-dev": {
-    "typo3/testing-framework": "^4.15 || ^5.0 || ^6.11",
-    "helhum/typo3-console": "^5.8 || ^6.6 || ^7.0"
+    "helhum/typo3-console": "^8.2",
+    "typo3/testing-framework": "^8.2 || ^9.0"
   },
   "autoload-dev": {
     "psr-4": {
-      "AndreasWolf\\Uuid\\Tests\\": "public/typo3conf/ext/uuid/Tests/"
+      "AndreasWolf\\Uuid\\Tests\\": "vendor/andreaswolf/typo3-uuid/Tests/"
     },
     "classmap": [
-      "public/typo3conf/ext/uuid/Tests/Functional/Fixtures/test_extension"
+      "vendor/andreaswolf/typo3-uuid/Tests/Functional/Fixtures/test_extension"
     ]
   },
   "config": {
     "sort-packages": true,
     "allow-plugins": {
-      "typo3/cms-composer-installers": true,
-      "typo3/class-alias-loader": true
+      "helhum/dotenv-connector": true,
+      "typo3/class-alias-loader": true,
+      "typo3/cms-composer-installers": true
     }
   },
   "extra": {
